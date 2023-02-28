@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul class="nav">
+                <li class="leftnav"><img id="logo" src="{{ url_for('static', filename='logo.png') }}" alt="Chess Tournament Company Logo"/></li>
+            </ul>
+            <ul class="nav">
+                <li class="rightnav"><a href="{{ url_for('index') }}">Home</a></li>
+                <li class="rightnav"><a href="{{ url_for('store') }}">Store</a></li>
+                <li class="rightnav"><a href="{{ url_for('database') }}">Database</a></li>
+                <li class="rightnav"><a href="{{ url_for('register') }}">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block main_content %}{% endblock %}
+    </main>
+    <footer>
+        2023 CTC Chess Tournament Company
+    </footer>
+</body>
+
+</html>

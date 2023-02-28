@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+<h1 id="welcome">Welcome to CTC!</h1>
+<section id="login">
+    <a href="{{ url_for('login') }}">Click to log in</a>
+</section>
+<section id="register">
+    <a href="{{ url_for('register') }}">New user? Click to register</a>
+</section>
+<section id="news">
+    <h2>News</h2>
+    <ul>
+        {% for blog in news %}
+        <li class="bloglist">
+            <h3>{{ blog["title"] }}</h3>
+            <p>{{ blog["date"] }}</p>
+            <p>{{ blog["content"] }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+
+{% endblock %}
