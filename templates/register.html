@@ -1,28 +1,35 @@
 {% extends "base.html" %}
 
 {% block main_content %}
-
-    <form action="" method="post" novalidate>
+<section>
+<h1 class="index">CREATE ACCOUNT</h1>
+    <form action="" method="post" novalidate id="registerform">
         {{ form.hidden_tag() }}
         {{ form.username.label }}
-        {{ form.username() }}
+        <br/>
+        {{ form.username(class_="register-control") }}
+        <br/>
         {% for error in form.username.errors %}
             {{ error }}
         {% endfor %}
         <br/>
         {{ form.password.label }}
-        {{ form.password() }}
+        <br />
+        {{ form.password(class_="register-control") }}
+        <br />
         {% for error in form.password.errors %}
             {{ error }}
         {% endfor %}
         <br/>
         {{ form.password2.label }}
-        {{ form.password2() }}
+        <br />
+        {{ form.password2(class_="register-control") }}
+        <br />
         {% for error in form.password2.errors %}
             {{ error }}
         {% endfor %}
         <br/>
         {{ form.submit() }}
     </form>
-
+</section>
 {% endblock %}

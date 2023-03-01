@@ -30,6 +30,25 @@ def index():
     news = db.execute("""SELECT * FROM news ORDER BY blog_id DESC;""").fetchall()
     return render_template("index.html", news=news)
 
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+        password2 = form.password2.data
+        db = get_db()
+        possible_clashing_user = db.execute("""SELECT * FROM users
+                                               WHERE username = ?;""", (username,)).fetchone()
+        if possible_clashing_user is not None:
+            form.username.errors.append("Username is already taken!")
+        else:
+            db.execute("""INSERT INTO users (username, password, is_admin)
+                          VALUES (?, ?, 0);""", (username, generate_password_hash(password)))
+            db.commit()
+            return redirect( url_for("login") )
+    return render_template("register.html", form=form)
+
 @app.route("/store")
 def store():
     return render_template("store.html")
@@ -38,10 +57,21 @@ def store():
 def database():
     return render_template("database.html")
 
-@app.route("/register")
-def register():
-    return render_template("register.html")
-
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    return render_template("login.html")
+    form = LoginForm()
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+        db = get_db()
+        possible_clashing_user = db.execute("""SELECT * FROM users
+                                               WHERE username = ?;""", (username,)).fetchone()
+        if possible_clashing_user is None:
+            form.username.errors.append("Username is not registered!")
+        else:
+            if check_password_hash(possible_clashing_user["password"], password):
+                session["username"] = possible_clashing_user["username"]
+                return redirect(url_for("index"))
+            else:
+                form.password.errors.append("Password is incorrect!")
+    return render_template("login.html", form=form)

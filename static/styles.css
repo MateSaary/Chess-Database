@@ -1,5 +1,6 @@
 html {
     scroll-behavior: smooth;
+    background-color: #242424;
 }
 
 @viewport {
@@ -75,17 +76,21 @@ nav {
 }
 
 main {
+    background-color: #494949;
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    color: #ffffff;
+}
+
+#index {
     grid-area: main;
     display: grid;
     grid-template-columns: 3fr 1fr;
     grid-template-rows: auto;
     grid-template-areas: "welcome news"
-                         "register news"
-                         "login news";
-    background-color: #494949;
-    background-image: url('background.jpg');
-    background-size: cover;
-    background-attachment: fixed;
+                         "login news"
+                         "register news";
     color: #ffffff;
 }
 
@@ -94,8 +99,11 @@ footer {
     text-align: center;
     color: #ffffff;
     background-color: #242424;
-    padding-top: 2%;
-    padding-bottom: 5px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 1% 0% 1% 0%;
 }
 
 ul.nav {
@@ -125,16 +133,16 @@ ul.nav {
     grid-area: register;
     text-align: center;
     margin-right: 12%;
-    margin-top: 10%;
+    margin-top: 6%;
+    padding-bottom: 10%;
 }
 
 #login {
     grid-area: login;
     text-align: center;
     margin-right: 12%;
-    padding-top: 10%;
-    padding-bottom: 10%;
-    margin-bottom: 3%;
+    padding-top: 6%;
+    margin-bottom: 2%;
 }
 
 #news {
@@ -144,7 +152,8 @@ ul.nav {
     border-left: 2px solid #494949;
     border-bottom: 2px solid #494949;
     overflow: scroll;
-    height: 690px;
+    overflow-x: hidden;
+    height: 700px;
 }
 
 ul {
@@ -156,6 +165,18 @@ ul {
     border: 1px solid #494949;
     margin-right: 2%;
     margin-left: 2%;
+    padding-left: 0.25%;
+    padding-right: 0.25%;
+}
+
+li > :first-child {
+    margin-bottom: 0%;
+}
+
+li > :nth-child(2) {
+    margin-top: 0%;
+    color: #d6d6d6;
+    font-style: italic;
 }
 
 a {
@@ -171,4 +192,60 @@ section > a {
     padding: 15px;
     border: 1px solid #494949;
     border-radius: 10px;
+}
+
+/*
+    register.html
+*/
+
+#registerform {
+    text-align: center;
+    margin-top: 0%;
+    margin-bottom: 17%;
+}
+
+h1.index {
+    text-align: center;
+    margin-top: 10%;
+    font-size: 35px;
+}
+
+.register-control {
+    margin-top: 0.5%;
+    background-color: #353535;
+    color: #ffffff;
+    border: 1px solid #494949;
+    font-size: 14px;
+}
+
+#submit {
+    color: #ffffff;
+    background-color: #353535;
+    border: 1px solid #494949;
+    padding: 4px 8px 4px 8px;
+    font-size: 16px;
+}
+
+/*
+    login.html
+*/
+
+.login {
+    text-align: center;
+    margin-top: 8%;
+    margin-bottom: 0%;
+}
+.login-control {
+    margin-top: 0.5%;
+    background-color: #353535;
+    color: #ffffff;
+    border: 1px solid #494949;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+h1.login {
+    text-align: center;
+    margin-top: 10%;
+    font-size: 35px;
 }
