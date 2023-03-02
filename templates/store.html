@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+<h1>Upcoming Events</h1>
+<table>
+    {% for tournament in tournaments %}
+        <tr>
+            <td>{{ tournament["name"] }}</td>
+            <td>{{ tournament["date"] }}</td>
+            <td><a href="">See details</a></td>
+        </tr>
+    {% endfor %}
+
+{% endblock %}

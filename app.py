@@ -1,3 +1,9 @@
+'''
+
+
+
+'''
+
 from flask import Flask, render_template, session, redirect, url_for, g, request
 from database import get_db, close_db
 from flask_session import Session
@@ -14,7 +20,7 @@ Session(app)
 
 @app.before_request
 def logged_in_user():
-    g.user = session.get("user_id", None)
+    g.user = session.get("username", None)
 
 def login_required(view):
     @wraps(view)
@@ -51,11 +57,16 @@ def register():
 
 @app.route("/store")
 def store():
-    return render_template("store.html")
+    db = get_db()
+    tournaments = db.execute("""SELECT * FROM tournaments
+                                WHERE date >= date('now');""").fetchall()
+    return render_template("store.html", tournaments=tournaments)
 
 @app.route("/database")
 def database():
-    return render_template("database.html")
+    db = get_db()
+    tournaments = db.execute("""SELECT * FROM tournaments;""").fetchall()
+    return render_template("database.html", tournaments=tournaments)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -68,10 +79,13 @@ def login():
                                                WHERE username = ?;""", (username,)).fetchone()
         if possible_clashing_user is None:
             form.username.errors.append("Username is not registered!")
+        elif not check_password_hash(possible_clashing_user["password"], password):
+            form.password.errors.append("Password is incorrect!")
         else:
-            if check_password_hash(possible_clashing_user["password"], password):
-                session["username"] = possible_clashing_user["username"]
-                return redirect(url_for("index"))
-            else:
-                form.password.errors.append("Password is incorrect!")
+            session.clear()
+            session["username"] = username
+            next_page = request.args.get("next")
+            if not next_page:
+                next_page = url_for("index")
+            return redirect(next_page)
     return render_template("login.html", form=form)

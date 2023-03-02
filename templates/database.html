@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+<table>
+    {% for tournament in tournaments %}
+        <tr>
+            <td>{{ tournament["name"] }}</td>
+            <td>{{ tournament["date"] }}</td>
+            <td><a href="{{ url_for('tournament', tournament_id=tournament['tournament_id'] ) }}">See details</a></td>
+        </tr>
+    {% endfor %}
+</table>
+
+{% block main_content %}
+
+{% endblock %}
