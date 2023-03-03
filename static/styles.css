@@ -11,6 +11,7 @@
 html {
     scroll-behavior: smooth;
     background-color: var(--main-background-color);
+    height: 100%;
 }
 
 @viewport {
@@ -22,8 +23,14 @@ html {
 ::-webkit-scrollbar-thumb {background: var(--tertiary-color);}
 
 body {
+    background-color: var(--tertiary-color);
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-attachment: fixed;
     margin: 0%;
+    padding: 0%;
     display: grid;
+    height: 100%;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     grid-template-areas: "header"
@@ -68,6 +75,10 @@ nav {
     border-bottom: 2px solid var(--tertiary-color);
 }
 
+ul.nav {
+    
+}
+
 .leftnav {
     grid-area: left;
     float: left;
@@ -85,10 +96,6 @@ nav {
 }
 
 main {
-    background-color: var(--tertiary-color);
-    background-image: url('background.jpg');
-    background-size: cover;
-    background-attachment: fixed;
     color: #ffffff;
 }
 
@@ -196,7 +203,7 @@ h2 {
     font-size: 35px;
 }
 
-section > a {
+section.register > a {
     background-color: var(--main-background-color);
     padding: 15px;
     border: 1px solid var(--tertiary-color);
@@ -206,6 +213,14 @@ section > a {
 /*
     register.html
 */
+
+form {
+    width: auto;
+}
+
+label {
+    font-size: 20px;
+}
 
 #registerform {
     text-align: center;
@@ -220,7 +235,6 @@ h1.index {
 }
 
 .register-control {
-    margin-top: 0.5%;
     background-color: var(--secondary-color);
     color: #ffffff;
     border: 1px solid var(--tertiary-color);
@@ -239,7 +253,6 @@ h1.index {
     margin-top: .5%;
     text-align: center;
     justify-content: center;
-    display: block;
     margin-bottom: 12.5%;
 }
 
@@ -249,8 +262,6 @@ h1.index {
 
 .login {
     text-align: center;
-    margin-top: 8%;
-    margin-bottom: 1%;
 }
 .login-control {
     margin-top: 0.5%;
@@ -258,17 +269,29 @@ h1.index {
     color: #ffffff;
     border: 1px solid var(--tertiary-color);
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 18px;
+}
+
+section.login > form {
+    text-align: left;
+    width: min-content;
+}
+
+#submit {
+    text-align: center;
+}
+
+section.login {
+    margin-left: clamp(10% 40% 45%);
+    margin-right: clamp(10% 40% 45%);
+    margin-bottom: clamp(20% 30% 40%);
+    text-align: center; 
 }
 
 h1.login {
     text-align: center;
-    margin-top: 10%;
-    font-size: 35px;
-}
-
-#login-register-link {
-    padding-bottom: 5%;
+    font-size: 40px;
+    margin-bottom: 1%;
 }
 
 table {
