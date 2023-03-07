@@ -10,7 +10,7 @@
             <td>{{ tournament["date"] }}</td>
             <td>{{ tournament["start_time"]}}</td>
             <td>{{ tournament["entry_fee"] }}</td>
-            <td><a href="">See details</a></td>
+            <td><a href="{{ url_for('tournament_details', tournament_id=tournament['tournament_id'])}}">See details</a></td>
         </tr>
     {% endfor %}
 

@@ -25,10 +25,6 @@ CREATE TABLE users
     is_admin INTEGER NOT NULL
 );
 
-INSERT INTO users (username, password, is_admin)
-VALUES
-    ('admin1', 'chess123', '1');
-
 DROP TABLE IF EXISTS tournaments;
 
 CREATE TABLE tournaments
@@ -39,7 +35,8 @@ CREATE TABLE tournaments
     start_time TEXT NOT NULL,
     entry_fee REAL NOT NULL,
     prize_money REAL NOT NULL,
-    description TEXT NOT NULL
+    description TEXT NOT NULL,
+    winner TEXT
 );
 
 INSERT INTO tournaments (name, date, start_time, entry_fee, prize_money, description)
@@ -52,3 +49,19 @@ VALUES
     ('CTC Bullet Challengers #1', '2023-03-26', '19:00', 24.99, 200, 'Welcome to CTC''s first ever bullet tournament! The tournament will be played over 5 rounds, with a 2 minute time control per player per game.'),
     ('CTC Tournament Series #4', '2023-03-30', '18:00', 14.99, 125, 'Welcome back to CTC''s tournament series. This tournament will be played over 3 rounds with a 30 minute time control per player per game.'),
     ('CTC Rapid Series #2', '2023-04-08', '15:00', 19.99, 150, 'CTC''s second ever rapid tournament! 3 rounds, with a 10 minute time control as before will be used.');
+
+DROP TABLE IF EXISTS participants;
+
+CREATE TABLE participants
+(
+    participant_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    tournament_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    FOREIGN KEY (tournament_id) REFERENCES tournaments(tournament_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+INSERT INTO participants (tournament_id, user_id)
+VALUES
+    ('1', '1'),
+    ('1', '2');

@@ -6,6 +6,7 @@
     --main-background-color: #242424;
     --secondary-color: #353535;
     --tertiary-color: #494949;
+    --section-background: #242424e5;
 }
 
 html {
@@ -64,6 +65,10 @@ a:active {
     Base.html: header + footer
 */
 
+header {
+    height: min-content;
+}
+
 nav {
     grid-area: header;
     display: grid;
@@ -75,9 +80,6 @@ nav {
     border-bottom: 2px solid var(--tertiary-color);
 }
 
-ul.nav {
-    
-}
 
 .leftnav {
     grid-area: left;
@@ -137,6 +139,10 @@ ul.nav {
     index.html
 */
 
+#index {
+    height: 88.7vh;
+}
+
 #welcome {
     grid-area: welcome;
     text-align: center;
@@ -150,7 +156,7 @@ ul.nav {
     text-align: center;
     margin-right: 12%;
     margin-top: 6%;
-    padding-bottom: 10%;
+    height: fit-content;
 }
 
 #login {
@@ -169,7 +175,8 @@ ul.nav {
     border-bottom: 2px solid var(--tertiary-color);
     overflow: scroll;
     overflow-x: hidden;
-    height: 700px;
+    height: auto !important;
+    height: 88vh;
 }
 
 ul {
@@ -203,13 +210,6 @@ h2 {
     font-size: 35px;
 }
 
-section.register > a {
-    background-color: var(--main-background-color);
-    padding: 15px;
-    border: 1px solid var(--tertiary-color);
-    border-radius: 10px;
-}
-
 /*
     register.html
 */
@@ -222,38 +222,50 @@ label {
     font-size: 20px;
 }
 
-#registerform {
-    text-align: center;
-    margin-top: 0%;
-    margin-bottom: 0%;
-}
-
-h1.index {
-    text-align: center;
-    margin-top: 10%;
-    font-size: 35px;
-}
-
-.register-control {
-    background-color: var(--secondary-color);
-    color: #ffffff;
-    border: 1px solid var(--tertiary-color);
-    font-size: 14px;
-}
-
 #submit {
     color: #ffffff;
     background-color: var(--secondary-color);
     border: 1px solid var(--tertiary-color);
     padding: 4px 8px 4px 8px;
     font-size: 16px;
+    text-align: center;
 }
 
 .login-register-link {
-    margin-top: .5%;
+    padding: 15px;
+}
+
+.register {
+    text-align: center;
+}
+
+.register-control {
+    margin-top: 0.5%;
+    background-color: var(--secondary-color);
+    color: #ffffff;
+    border: 1px solid var(--tertiary-color);
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+section.register > form {
+    text-align: left;
+    width: min-content;
+}
+
+section.register {
+    margin-left: clamp(10% 40% 45%);
+    margin-right: clamp(10% 40% 45%);
+    margin-bottom: clamp(20% 30% 40%);
     text-align: center;
     justify-content: center;
-    margin-bottom: 12.5%;
+    display: grid;
+}
+
+h1.register {
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 1%;
 }
 
 /*
@@ -277,15 +289,13 @@ section.login > form {
     width: min-content;
 }
 
-#submit {
-    text-align: center;
-}
-
 section.login {
     margin-left: clamp(10% 40% 45%);
     margin-right: clamp(10% 40% 45%);
     margin-bottom: clamp(20% 30% 40%);
-    text-align: center; 
+    text-align: center;
+    justify-content: center;
+    display: grid;
 }
 
 h1.login {
@@ -295,6 +305,193 @@ h1.login {
 }
 
 table {
-    border: 1px solid var(--tertiary-color);
+    
     width: 100%;
+    text-align: left;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+td {
+    border: 1px solid var(--tertiary-color);
+}
+
+
+/*
+    store.html
+*/
+
+
+/*
+    tournament_details.html
+*/
+
+#back_to_store {
+    grid-area: back_to_store;
+    font-size: 25px;
+    text-align: center;
+    position: absolute;
+    padding: 0 10px 5px 10px;
+    background-color: var(--section-background);
+    border-radius: 10px 0px 10px 0px;
+    border-right: 1px solid var(--tertiary-color);
+    border-bottom: 1px solid var(--tertiary-color);
+    color: #ffffff;
+}
+
+div { overflow: hidden; display: block;}
+
+    
+section.tournament_details {
+    background-color: var(--section-background);
+    border: 1px solid var(--tertiary-color);
+    border-radius: 10px;
+    margin-left: 25%;
+    margin-right: 25%;
+    width: 50%;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: "details_top details_top"
+                         "details_date details_time"
+                         "details_entry details_prize"
+                         "details_description details_description"
+                         "add_to_cart add_to_cart"
+                         "other other";
+    overflow-y: scroll;
+    height: 75vh;
+}
+
+section.tournament_details > h1 {
+    grid-area: details_top;
+    font-size: 40px;
+    margin-bottom: 4%;
+}
+
+/* date */
+section.tournament_details > :nth-child(2) {
+    grid-area: details_date;
+    margin-top: 0%;
+    text-align: right;
+    margin-right: 20%;
+}
+
+section.tournament_details > :nth-child(3) {
+    grid-area: details_time;
+    margin-bottom: 2%;
+    text-align: left;
+    margin-left: 20%;
+}
+
+/* entry fee */
+section.tournament_details > :nth-child(4) {
+    grid-area: details_entry;
+    margin-top: 0%;
+    text-align: right;
+    margin-right: 20%;
+}
+
+/* prize money */
+section.tournament_details > :nth-child(5) {
+    grid-area: details_prize;
+    margin-bottom: 2%;
+    text-align: left;
+    margin-left: 20%;
+    margin-bottom: 5%;
+}
+
+/* description */
+section.tournament_details > :nth-child(6) {
+    grid-area: details_description;
+    margin: 0 12% 4% 12%;
+    text-align: center;
+    border-top: 3px solid var(--tertiary-color);
+    padding-top: 2%;
+    border-bottom: 3px solid var(--tertiary-color);
+    padding-bottom: 2%;
+}
+
+/* add to cart button */
+section.tournament_details > :nth-child(7) {
+    grid-area: add_to_cart;
+    font-size: 30px;
+    background-color: var(--tertiary-color);
+    margin-bottom: 2%;
+}
+
+section.tournament_details > :nth-child(7) > a {
+    color: #ffffff;
+}
+
+section.tournament_details > p {
+    margin-top: 0%;
+    margin-bottom: 1%;
+    font-size: 25px;
+}
+
+.other_details {
+    grid-area: other;
+    text-align: left;
+    margin: 2%;
+}
+
+summary {
+    background-color: var(--tertiary-color);
+    font-size: 25px;
+}
+
+details {
+    background-color: var(--tertiary-color);
+    border: #242424 1px solid;
+    border-radius: 10px;
+    padding: 1%;
+}
+
+/*
+    cart.html
+*/
+
+section.cart {
+    background-color: var(--section-background);
+    border: 1px solid var(--tertiary-color);
+    border-radius: 10px;
+    margin-left: 25%;
+    margin-right: 25%;
+    width: 50%;
+    text-align: center;
+    height: 75vh;
+    font-size: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 10%;
+    grid-template-areas: "cart_top cart_top"
+                         "cart_content cart_content"
+                         "logout checkout";
+}
+
+section.cart > h1 {
+    grid-area: cart_top;
+    text-align: center;
+    font-size: 35px;
+    height: fit-content;
+}
+
+table.cart {
+    grid-area: cart_content;
+}
+
+#cart_total {
+    background-color: var(--tertiary-color);
+
+}
+
+#cart_logout {
+    grid-area: logout;
+    font-size: 25px;
+}
+
+#cart_checkout {
+    grid-area: checkout;
+    font-size: 25px;
 }

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+<section class="tournament_details">
+    <h1>{{ tournament["name"] }}</h1>
+    <p>Date: {{ tournament["date"] }}</p>
+    <p>Start Time: {{ tournament["start_time"] }}</p>
+    <p>Entry Fee: €{{ tournament["entry_fee"] }}</p>
+    <p>Prize Money: €{{tournament["prize_money"]}}</p>
+    <p>{{ tournament["description"] }}</p>
+    <p>
+        <a href="{{ url_for('add_to_cart', tournament_id=tournament['tournament_id']) }}">Add ticket to cart</a>
+    </p>
+    <a href="{{ url_for('store') }}" id="back_to_store"> &#60; Back to store</a>
+    <section class="other_details">
+        <h2 class="other_details">Frequently Asked Questions</h2>
+        <details class="other_details">
+            <summary>What&#8217;s the difference between tournaments?</summary>
+            <p>The tournaments offered differ in a variety of ways. This may include the time control
+                used, the number of rounds, the entry fee and the prize money.
+            </p>
+        </details>
+        <details class="other_details">
+            <summary>What are the different time controls?</summary>
+            <p>Our tournaments are generally split into 3 time control categories:</p>
+            <ul>
+                <li>Bullet: 1-2 minutes per player per round</li>
+                <li>Blitz: 3-14 minutes per player per round</li>
+                <li>Standard:15+ minutes per player per round</li>
+            </ul>
+        </details>
+        <details class="other_details">
+            <summary>Why can't I buy multiple tickets for the same event?</summary>
+            <p>All our tournaments require each player to have their own account registered on our
+                website.
+            </p>
+        </details>
+    </section>
+</section>
+
+{% endblock %}
