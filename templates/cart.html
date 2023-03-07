@@ -22,7 +22,7 @@
             <td>€ {{ total }}</td>
     </table>
 {% else %}
-    <p>Your cart is empty</p>
+    <p id="cart_empty">Your cart is empty!</p>
 {% endif %}
 <a href="{{ url_for('logout') }}" id="cart_logout">Logout</a>
 <a href="{{ url_for('checkout') }}" id="cart_checkout">Checkout</a>

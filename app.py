@@ -8,8 +8,9 @@ from flask import Flask, render_template, session, redirect, url_for, g, request
 from database import get_db, close_db
 from flask_session import Session
 from werkzeug.security import generate_password_hash, check_password_hash
-from forms import RegistrationForm, LoginForm
+from forms import RegistrationForm, LoginForm, CheckoutForm, AddNewsForm, AddTournamentForm
 from functools import wraps
+import datetime
 
 app = Flask(__name__)
 app.teardown_appcontext(close_db)
@@ -64,7 +65,7 @@ def register():
 def store():
     db = get_db()
     tournaments = db.execute("""SELECT * FROM tournaments
-                                WHERE date >= date('now');""").fetchall()
+                                WHERE date >= date('now') ORDER BY date ASC;""").fetchall()
     return render_template("store.html", tournaments=tournaments, title="Store - Chess Tournaments")
 
 @app.route("/tournament_details/<int:tournament_id>")
@@ -78,7 +79,7 @@ def tournament_details(tournament_id):
 def database():
     db = get_db()
     tournaments = db.execute("""SELECT * FROM tournaments
-                                WHERE date <= date('now');""").fetchall()
+                                WHERE date <= date('now') ORDER BY date DESC;""").fetchall()
     return render_template("database.html", tournaments=tournaments, title="Database - Chess Tournaments")
 
 @app.route("/login", methods=["GET", "POST"])
@@ -158,6 +159,9 @@ def remove_from_cart(tournament_id):
 @app.route("/checkout", methods=["GET", "POST"])
 @login_required
 def checkout():
+    form = CheckoutForm()
+    if form.validate_on_submit():
+        name = form.name.data
 
     return render_template("checkout.html", title="Checkout - Chess Tournaments")
 
@@ -165,5 +169,28 @@ def checkout():
 @app.route("/admin", methods=["GET", "POST"])
 @login_required
 def admin():
-
-    return render_template("admin.html", title="Admin Dashboard - Chess Tournaments")
+    form = AddNewsForm()
+    form2 = AddTournamentForm()
+    if form.submit1.data and form.validate_on_submit(): 
+        # I found this workaround to having multiple forms on one page here, specifically the first answer:
+        # https://stackoverflow.com/questions/18290142/multiple-forms-in-a-single-page-using-flask-and-wtforms
+        title = form.title.data
+        content = form.content.data
+        db = get_db()
+        db.execute("""INSERT INTO news (title, content, date)
+                      VALUES (?, ?, ?);""", (title, content, datetime.date.today()))
+        db.commit()
+        return redirect(url_for("admin"))
+    if form2.submit2.data:
+        name = str(form2.name.data) # Casting the data from the form solved the problem of an error
+        date = str(form2.date.data) # being thrown when trying to insert the data into the database
+        start_time = str(form2.start_time.data)
+        entry_fee = str(form2.entry_fee.data)
+        prize_money = str(form2.prize_money.data)
+        description = str(form2.description.data)
+        db = get_db()
+        db.execute("""INSERT INTO tournaments (name, date, start_time, entry_fee, prize_money, description)
+                      VALUES (?, ?, ?, ?, ?, ?);""", (name, date, start_time, entry_fee, prize_money, description))
+        db.commit()
+        return redirect(url_for("admin"))
+    return render_template("admin.html", form=form, form2=form2, title="Admin Dashboard - Chess Tournaments")

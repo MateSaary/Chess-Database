@@ -2,13 +2,87 @@
 
 {% block main_content %}
 <section>
-    <h1>Add news article</h1>
-</section>
-<section>
-    <h1>Add upcoming tournament</h1>
-</section>
-<section>
-    <h1>Add tournament results</h1>
+    <section>
+        <h1>Add news article</h1>
+        <form action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            {{ form.title.label}}
+            <br />
+            {{ form.title() }}
+            <br />
+            {% for error in form.title.errors %}
+            {{ error }}
+            {% endfor %}
+            <br />
+            {{ form.content.label }}
+            <br />
+            {{ form.content() }}
+            <br />
+            {% for error in form.content.errors %}
+            {{ error }}
+            {% endfor %}
+            <br />
+            {{ form.submit1() }}
+        </form>
+    </section>
+    <section>
+        <h1>Add upcoming tournament</h1>
+        <form action="" method="post" novalidate>
+            {{form2.hidden_tag()}}
+            {{form2.name.label}}
+            <br />
+            {{form2.name()}}
+            <br />
+            {% for error in form2.name.errors %}
+            {{error}}
+            {% endfor %}
+            <br />
+            {{form2.date.label}}
+            <br />
+            {{form2.date()}}
+            <br />
+            {% for error in form2.date.errors %}
+            {{error}}
+            {% endfor %}
+            <br />
+            {{form2.start_time.label}}
+            <br />
+            {{form2.start_time()}}
+            <br />
+            {% for error in form2.start_time.errors %}
+            {{error}}
+            {% endfor %}
+            <br />
+            {{form2.entry_fee.label}}
+            <br />
+            {{form2.entry_fee()}}
+            <br />
+            {% for error in form2.entry_fee.errors %}
+            {{error}}
+            {% endfor %}
+            <br />
+            {{form2.prize_money.label}}
+            <br />
+            {{form2.prize_money()}}
+            <br />
+            {% for error in form2.prize_money.errors %}
+            {{error}}
+            {% endfor %}
+            <br />
+            {{form2.description.label}}
+            <br />
+            {{form2.description()}}
+            <br />
+            {% for error in form2.description.errors %}
+            {{error}}
+            {% endfor %}
+            <br />
+            {{form2.submit2()}}
+        </form>
+    </section>
+    <section>
+        <h1>Add tournament results</h1>
+    </section>
 </section>
 
 {% endblock %}

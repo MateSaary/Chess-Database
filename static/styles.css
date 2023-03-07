@@ -12,6 +12,9 @@
 html {
     scroll-behavior: smooth;
     background-color: var(--main-background-color);
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-attachment: fixed;
     height: 100%;
 }
 
@@ -99,6 +102,7 @@ nav {
 
 main {
     color: #ffffff;
+    overflow-y: scroll;
 }
 
 #index {
@@ -173,10 +177,11 @@ ul.nav {
     background-color: var(--main-background-color);
     border-left: 2px solid var(--tertiary-color);
     border-bottom: 2px solid var(--tertiary-color);
-    overflow: scroll;
+    overflow-y: scroll;
     overflow-x: hidden;
     height: auto !important;
     height: 88vh;
+    margin-bottom: 10%;
 }
 
 ul {
@@ -320,6 +325,42 @@ td {
 /*
     store.html
 */
+
+#upcoming-events {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-bottom: 4%;
+}
+
+#upcoming-events > section {
+    border: 2px solid var(--tertiary-color);
+    background-color: var(--section-background);
+    margin: 4% 4% 4% 4%;
+    text-align: center;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+        "title title"
+        "date entry_fee"
+        "see_details see_details";
+}
+
+#upcoming-events-wrap > h1 {
+    margin: 1% 0% 0% 4%;
+    font-size: 40px;
+}
+
+#upcoming-events > section > h2 {
+    grid-area: title;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    font-size: 30px;
+}
+
+#upcoming-events > section > p:last-child {
+    grid-area: see_details;
+}
+
 
 
 /*
@@ -494,4 +535,9 @@ table.cart {
 #cart_checkout {
     grid-area: checkout;
     font-size: 25px;
+}
+
+#cart_empty {
+    font-size: 25px;
+    grid-area: cart_content;
 }

@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 
 {% block main_content %}
-
+<section id="upcoming-events-wrap">
 <h1>Upcoming Events</h1>
-<table>
+<section id="upcoming-events">
     {% for tournament in tournaments %}
-        <tr>
-            <td>{{ tournament["name"] }}</td>
-            <td>{{ tournament["date"] }}</td>
-            <td>{{ tournament["start_time"]}}</td>
-            <td>{{ tournament["entry_fee"] }}</td>
-            <td><a href="{{ url_for('tournament_details', tournament_id=tournament['tournament_id'])}}">See details</a></td>
-        </tr>
+        <section>
+            <h2>{{ tournament["name"] }}</h2>
+            <p>Date: {{ tournament["date"] }}</p>
+            <p>Entry Fee: €{{ tournament["entry_fee"] }}</p>
+            <p><a href="{{ url_for('tournament_details', tournament_id=tournament['tournament_id'])}}">See details</a></p>
+        </section>
     {% endfor %}
-
+</section>
+</section>
 {% endblock %}
