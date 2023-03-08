@@ -1,7 +1,13 @@
 '''
+My site has 2 types of users. 
+Regular users can be registered via the registration page like normal.
+Admin users will be automatically directed to the admin dashboard after logging in.
+The admin login details are as follows:
+Username: admin
+Password: chess123
 
-
-
+I have inserted some dummy data into the participants table for the first 3 tournaments only.
+Winners for each past tournament can be added via the admin dashboard.
 '''
 
 from flask import Flask, render_template, session, redirect, url_for, g, request
@@ -173,7 +179,7 @@ def checkout():
         db.execute("""INSERT INTO participants (tournament_id, name)
                       VALUES (?, ?);""", (tournament_id, session["username"]))
         db.commit()
-
+    session["cart"] = {}
     return render_template("checkout.html", title="Checkout - Chess Tournaments")
 
 #Admin Dashboard

@@ -544,7 +544,8 @@ section.cart {
     grid-template-rows: 10%;
     grid-template-areas: "cart_top cart_top"
                          "cart_content cart_content"
-                         "logout checkout";
+                         "logout checkout"
+                         "note note";
 }
 
 section.cart > h1 {
@@ -576,6 +577,23 @@ table.cart {
 #cart_empty {
     font-size: 25px;
     grid-area: cart_content;
+}
+
+#cart_note {
+    grid-area: note;
+    font-size: 25px;
+    text-align: center;
+}
+
+/*
+    checkout.html
+*/
+section.checkout {
+    background-color: var(--section-background);
+    border: 1px solid var(--tertiary-color);
+    border-radius: 10px;
+    text-align: center;
+    font-size: 20px;
 }
 
 /*
