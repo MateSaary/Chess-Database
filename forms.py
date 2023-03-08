@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, StringField, PasswordField, DecimalField, DateField
+from wtforms import SubmitField, StringField, PasswordField, DecimalField, DateField, SelectField
 from wtforms.validators import InputRequired, EqualTo
 
 class RegistrationForm(FlaskForm):
@@ -51,3 +51,10 @@ class AddTournamentForm(FlaskForm):
     description = StringField("Description:",
                             validators=[InputRequired()])
     submit2 = SubmitField("Submit")
+
+class AddWinnerForm(FlaskForm):
+    tournament = SelectField("Tournament:")
+    name = StringField("Winner:",
+                            validators=[InputRequired()])
+    
+    submit3 = SubmitField("Submit")

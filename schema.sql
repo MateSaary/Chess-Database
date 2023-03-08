@@ -56,12 +56,17 @@ CREATE TABLE participants
 (
     participant_id INTEGER PRIMARY KEY AUTOINCREMENT,
     tournament_id INTEGER NOT NULL,
-    user_id INTEGER NOT NULL,
-    FOREIGN KEY (tournament_id) REFERENCES tournaments(tournament_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    name TEXT,
+    FOREIGN KEY (tournament_id) REFERENCES tournaments(tournament_id)
 );
 
-INSERT INTO participants (tournament_id, user_id)
+INSERT INTO participants (tournament_id, name)
 VALUES
-    ('1', '1'),
-    ('1', '2');
+    (1, 'Cagnus Marlsen'),
+    (1, 'Random User'),
+    (1, 'Another random user'),
+    (1, 'Random chess player'),
+    (1, 'Another chess player'),
+    (2, 'Nikaru Hakamura'),
+    (2, 'Random User 2'),
+    (2, 'Another random user 2');

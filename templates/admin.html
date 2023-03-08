@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block main_content %}
-<section>
-    <section>
+<section class="admin_wrap">
+    <section class="admin_dashboard">
         <h1>Add news article</h1>
         <form action="" method="post" novalidate>
             {{ form.hidden_tag() }}
@@ -16,7 +16,7 @@
             <br />
             {{ form.content.label }}
             <br />
-            {{ form.content() }}
+            {{ form.content(class_="long_field") }}
             <br />
             {% for error in form.content.errors %}
             {{ error }}
@@ -25,7 +25,7 @@
             {{ form.submit1() }}
         </form>
     </section>
-    <section>
+    <section class="admin_dashboard">
         <h1>Add upcoming tournament</h1>
         <form action="" method="post" novalidate>
             {{form2.hidden_tag()}}
@@ -71,7 +71,7 @@
             <br />
             {{form2.description.label}}
             <br />
-            {{form2.description()}}
+            {{form2.description(class_="long_field")}}
             <br />
             {% for error in form2.description.errors %}
             {{error}}
@@ -80,8 +80,28 @@
             {{form2.submit2()}}
         </form>
     </section>
-    <section>
+    <section class="admin_dashboard">
         <h1>Add tournament results</h1>
+        <form action="" method="post" novalidate>
+            {{form3.hidden_tag()}}
+            {{form3.tournament.label}}
+            <br />
+            {{form3.tournament()}}
+            <br />
+            {% for error in form3.tournament.errors %}
+            {{error}}
+            {% endfor %}
+            <br />
+            {{form3.name.label}}
+            <br />
+            {{form3.name()}}
+            <br />
+            {% for error in form3.name.errors %}
+            {{error}}
+            {% endfor %}
+            <br />
+            {{form3.submit3()}}
+        </form>
     </section>
 </section>
 

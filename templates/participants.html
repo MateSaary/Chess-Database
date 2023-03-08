@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+
+<section id="participants">
+    <h1>Participants of <em>{{tournament["name"]}}</em></h1>
+    {% if participants %}
+    <table>
+        <tr>
+            <th>Participant Number</th>
+            <th>Name</th>
+        </tr>
+        {% for participant in participants %}
+        <tr>
+            <td>{{participant["participant_id"]}}</td>
+            <td>{{participant["name"]}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>There are no participants for this tournament!</p>
+    {% endif %}
+</section>
+
+
+{% endblock %}

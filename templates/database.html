@@ -2,16 +2,25 @@
 
 
 {% block main_content %}
-
-<table>
-    {% for tournament in tournaments %}
+<section id="database">
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Name</th>
+            <th>Winner</th>
+            <th>Prize Money</th>
+            <th>Participants</th>
+        </tr>
+        {% for tournament in tournaments %}
         <tr>
             <td>{{ tournament["date"] }}</td>
             <td>{{ tournament["name"] }}</td>
-            <td><a href="">TO BE FINISHED</a></td>
+            <td>{{ tournament["winner"] }}</td>
+            <td>€{{ tournament["prize_money"] }}</td>
+            <td><a href="{{ url_for('participants', tournament_id=tournament['tournament_id']) }}">View Participants</a></td>
         </tr>
-    {% endfor %}
-</table>
-
+        {% endfor %}
+    </table>
+</section>
 
 {% endblock %}

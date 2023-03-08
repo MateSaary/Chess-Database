@@ -8,7 +8,7 @@ from flask import Flask, render_template, session, redirect, url_for, g, request
 from database import get_db, close_db
 from flask_session import Session
 from werkzeug.security import generate_password_hash, check_password_hash
-from forms import RegistrationForm, LoginForm, CheckoutForm, AddNewsForm, AddTournamentForm
+from forms import RegistrationForm, LoginForm, AddWinnerForm, AddNewsForm, AddTournamentForm
 from functools import wraps
 import datetime
 
@@ -56,7 +56,7 @@ def register():
             form.username.errors.append("Username is already taken!")
         else:
             db.execute("""INSERT INTO users (username, password, is_admin)
-                          VALUES (?, ?, 0);""", (username, generate_password_hash(password)))
+                          VALUES (?, ?, 1);""", (username, generate_password_hash(password)))
             db.commit()
             return redirect( url_for("login") )
     return render_template("register.html", form=form, title="Create Account - Chess Tournaments")
@@ -81,6 +81,15 @@ def database():
     tournaments = db.execute("""SELECT * FROM tournaments
                                 WHERE date <= date('now') ORDER BY date DESC;""").fetchall()
     return render_template("database.html", tournaments=tournaments, title="Database - Chess Tournaments")
+
+@app.route("/participants/<int:tournament_id>")
+def participants(tournament_id):
+    db = get_db()
+    tournament = db.execute("""SELECT * FROM tournaments
+                               WHERE tournament_id = ?;""", (tournament_id,)).fetchone()
+    participants = db.execute("""SELECT * FROM participants
+                                 WHERE tournament_id = ?;""", (tournament_id,)).fetchall()
+    return render_template("participants.html",tournament=tournament, participants=participants, title="Participants - Chess Tournaments")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -159,9 +168,11 @@ def remove_from_cart(tournament_id):
 @app.route("/checkout", methods=["GET", "POST"])
 @login_required
 def checkout():
-    form = CheckoutForm()
-    if form.validate_on_submit():
-        name = form.name.data
+    for tournament_id in session["cart"]:
+        db = get_db()
+        db.execute("""INSERT INTO participants (tournament_id, name)
+                      VALUES (?, ?);""", (tournament_id, session["username"]))
+        db.commit()
 
     return render_template("checkout.html", title="Checkout - Chess Tournaments")
 
@@ -171,6 +182,13 @@ def checkout():
 def admin():
     form = AddNewsForm()
     form2 = AddTournamentForm()
+    form3 = AddWinnerForm()
+    db = get_db()
+    tournaments_select = db.execute("""SELECT * FROM tournaments
+                                       WHERE date <= date('now') AND winner IS NULL;""").fetchall()
+    form3.tournament.choices = [(tournament["tournament_id"], tournament["name"]) for tournament in tournaments_select]
+    # I found this solution to populating a select field with data from a database here, specifically the second answer:
+    # https://stackoverflow.com/questions/43548561/populate-a-wtforms-selectfield-with-an-sql-query
     if form.submit1.data and form.validate_on_submit(): 
         # I found this workaround to having multiple forms on one page here, specifically the first answer:
         # https://stackoverflow.com/questions/18290142/multiple-forms-in-a-single-page-using-flask-and-wtforms
@@ -193,4 +211,13 @@ def admin():
                       VALUES (?, ?, ?, ?, ?, ?);""", (name, date, start_time, entry_fee, prize_money, description))
         db.commit()
         return redirect(url_for("admin"))
-    return render_template("admin.html", form=form, form2=form2, title="Admin Dashboard - Chess Tournaments")
+    if form3.submit3.data:
+        tournament_id = form3.tournament.data
+        winner = form3.name.data
+        db = get_db()
+        db.execute("""UPDATE tournaments
+                      SET winner = ?
+                      WHERE tournament_id = ?;""", (winner, tournament_id))
+        db.commit()
+        return redirect(url_for("admin"))
+    return render_template("admin.html", form=form, form2=form2, form3=form3, title="Admin Dashboard - Chess Tournaments")

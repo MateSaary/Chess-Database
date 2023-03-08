@@ -147,19 +147,27 @@ ul.nav {
     height: 88.7vh;
 }
 
+#index a {
+    background-color: var(--main-background-color);
+    padding: 2%;
+    border: 2px solid var(--tertiary-color);
+    border-radius: 8px;
+    font-size: 25px;
+}
+
 #welcome {
     grid-area: welcome;
     text-align: center;
     margin-right: 12%;
     margin-top: 8%;
     font-size: 60px;
+    margin-bottom: 0%;
 }
 
 #register {
     grid-area: register;
     text-align: center;
     margin-right: 12%;
-    margin-top: 6%;
     height: fit-content;
 }
 
@@ -167,7 +175,6 @@ ul.nav {
     grid-area: login;
     text-align: center;
     margin-right: 12%;
-    padding-top: 6%;
     margin-bottom: 2%;
 }
 
@@ -361,6 +368,35 @@ td {
     grid-area: see_details;
 }
 
+/*
+    database.html
+*/
+
+#database {
+    background-color: var(--section-background);
+    margin: 0 10% 0 10%;
+    border-left: 2px solid var(--tertiary-color);
+    border-right: 2px solid var(--tertiary-color);
+    font-size: 20px;
+}
+
+/*
+    participants.html
+*/
+
+#participants {
+    background-color: var(--section-background);
+    margin: 0 10% 0 10%;
+    border: 2px solid var(--tertiary-color);
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 1%;
+}
+
+#participants > h1 {
+    margin: 0 0 0 4%;
+    font-size: 40px;
+}
 
 
 /*
@@ -540,4 +576,28 @@ table.cart {
 #cart_empty {
     font-size: 25px;
     grid-area: cart_content;
+}
+
+/*
+    admin.html
+*/
+
+section.admin_wrap {
+    background-color: var(--section-background);
+    border: 1px solid var(--tertiary-color);
+    border-radius: 10px;
+    margin-left: 25%;
+    margin-right: 25%;
+    width: 50%;
+    text-align: center;
+    height: 75vh;
+    font-size: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "news upcoming winner";
+}
+
+.long_field {
+    width: 90%;
+    height: 40px;
 }
