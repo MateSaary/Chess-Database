@@ -62,7 +62,7 @@ def register():
             form.username.errors.append("Username is already taken!")
         else:
             db.execute("""INSERT INTO users (username, password, is_admin)
-                          VALUES (?, ?, 1);""", (username, generate_password_hash(password)))
+                          VALUES (?, ?, 0);""", (username, generate_password_hash(password)))
             db.commit()
             return redirect( url_for("login") )
     return render_template("register.html", form=form, title="Create Account - Chess Tournaments")
